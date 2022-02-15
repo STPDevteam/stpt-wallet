@@ -49,7 +49,7 @@
     <template #modal-footer>
       <div class="modal-footer w-100 py-4">
         <b-button v-if="unboundHash" @click="goMeterScan" class="w-100" type="button" variant="primary"
-          >Meter Scan</b-button
+          >Verse Scan</b-button
         >
       </div>
     </template>
@@ -104,7 +104,7 @@ export default {
       if (newVal === '' && oldVal.includes('0x')) {
         this.closeModal()
       }
-    }
+    },
   },
   methods: {
     ...mapActions({

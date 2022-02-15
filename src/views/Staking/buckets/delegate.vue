@@ -17,7 +17,7 @@
             <div class="name">Vote ID</div>
             <div class="content">{{ formData.id }}</div>
           </div>
-        
+
           <div class="section">
             <div class="name">From</div>
             <div class="content">{{ formData.owner }}</div>
@@ -36,7 +36,12 @@
               required
             ></b-form-select> -->
             <div class="v-select-container">
-              <v-select :class="{selectError: selectValid}" v-model="formData.newCandidate" :options="candidateOptions" :reduce="c => c.value"></v-select>
+              <v-select
+                :class="{ selectError: selectValid }"
+                v-model="formData.newCandidate"
+                :options="candidateOptions"
+                :reduce="(c) => c.value"
+              ></v-select>
               <span v-if="selectValid" class="selectStatus">{{ selectValidMsg }}</span>
             </div>
           </b-form-group>
@@ -51,7 +56,7 @@
     <template #modal-footer>
       <div class="modal-footer w-100 py-4">
         <b-button v-if="delegateHash" @click="goMeterScan" class="w-100" type="button" variant="primary"
-          >Meter Scan</b-button
+          >Verse Scan</b-button
         >
       </div>
     </template>
@@ -106,7 +111,7 @@ export default {
       if (newVal === '' && oldVal.includes('0x')) {
         this.closeModal()
       }
-    }
+    },
   },
   computed: {
     ...mapState('candidate', ['candidates']),
@@ -150,10 +155,10 @@ export default {
     },
     selectValid() {
       if (!this.formData.newCandidate) {
-        this.selectValidMsg = "Choose candidate please."
+        this.selectValidMsg = 'Choose candidate please.'
         return true
       }
-    }
+    },
   },
   methods: {
     ...mapActions({

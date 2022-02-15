@@ -38,7 +38,7 @@
     <template #modal-footer>
       <div class="modal-footer w-100 py-4">
         <b-button v-if="bailOutHash" @click="goMeterScan" class="w-100" type="button" variant="primary"
-          >Meter Scan</b-button
+          >Verse Scan</b-button
         >
       </div>
     </template>
@@ -73,7 +73,7 @@ export default {
       if (newVal === '' && oldVal.includes('0x')) {
         this.closeModal()
       }
-    }
+    },
   },
   computed: {
     ...mapState('wallet', ['account', 'chainId']),
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      bailOutAction: 'bailout/bailOut'
+      bailOutAction: 'bailout/bailOut',
     }),
     bailOut() {
       const dataBuffer = ScriptEngine.getBailOutData(this.account)

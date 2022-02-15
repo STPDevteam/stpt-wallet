@@ -58,7 +58,7 @@
     <template #modal-footer>
       <div class="modal-footer w-100 py-4">
         <b-button v-if="auctionBidHash" @click="goMeterScan" class="w-100" type="button" variant="primary"
-          >Meter Scan</b-button
+          >Verse Scan</b-button
         >
       </div>
     </template>
@@ -89,8 +89,8 @@ export default {
     return {
       amountValidationMsg: '',
       formData: {
-        amount: ''
-      }
+        amount: '',
+      },
     }
   },
   watch: {
@@ -98,7 +98,7 @@ export default {
       if (newVal === '' && oldVal.includes('0x')) {
         this.closeModal()
       }
-    }
+    },
   },
   computed: {
     ...mapState('wallet', ['account', 'chainId']),
@@ -121,9 +121,10 @@ export default {
       return ''
     },
     expectedPrice() {
-      let price = new BigNumber(this.auctionBidParams.data.receivedMTR)
-        .dividedBy(this.auctionBidParams.data.releasedMTRG)
-      return price.toFixed();
+      let price = new BigNumber(this.auctionBidParams.data.receivedMTR).dividedBy(
+        this.auctionBidParams.data.releasedMTRG,
+      )
+      return price.toFixed()
     },
     amountValidation() {
       if (this.formData.amount == '') {
@@ -142,12 +143,10 @@ export default {
     },
     estimateMTRG() {
       if (Number.isNaN(this.expectedPrice)) {
-        return NaN;
+        return NaN
       }
-      return new BigNumber(this.formData.amount)
-        .dividedBy(this.expectedPrice)
-        .toFixed();
-    }
+      return new BigNumber(this.formData.amount).dividedBy(this.expectedPrice).toFixed()
+    },
   },
   methods: {
     ...mapActions({
@@ -158,8 +157,8 @@ export default {
     },
     onSubmit() {
       const fromAddr = this.account
-      const value = new BigNumber("1" + "0".repeat(18)).times(this.formData.amount).toFixed();
-      const dataBuffer = ScriptEngine.getBidData(fromAddr, value);
+      const value = new BigNumber('1' + '0'.repeat(18)).times(this.formData.amount).toFixed()
+      const dataBuffer = ScriptEngine.getBidData(fromAddr, value)
       const scriptData = '0x' + dataBuffer.toString('hex')
       this.auctionBid({ name: this.auctionBidParams.data.name, data: scriptData })
     },

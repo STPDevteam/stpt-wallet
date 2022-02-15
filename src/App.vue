@@ -34,7 +34,7 @@ export default {
       dappId,
       isSelecting: false,
       walletSelect: {
-        description: 'Please select a wallet to connect to meter passport wallet',
+        description: 'Please select a wallet to connect to verse passport wallet',
         wallets: [
           { walletName: 'metamask', preferred: true },
           { walletName: 'imToken', preferred: true, infuraKey },

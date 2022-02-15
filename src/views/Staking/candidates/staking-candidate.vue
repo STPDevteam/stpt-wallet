@@ -91,7 +91,7 @@
     <template #modal-footer>
       <div class="candidate-modal-footer w-100 py-4">
         <b-button v-if="stakingCandidateHash" @click="goMeterScan" class="w-100" type="button" variant="primary"
-          >Meter Scan</b-button
+          >Verse Scan</b-button
         >
       </div>
     </template>
@@ -142,7 +142,7 @@ export default {
       if (newVal === '' && oldVal.includes('0x')) {
         this.closeModal()
       }
-    }
+    },
   },
   computed: {
     ...mapState('candidate', ['stakingCandidateLoading']),
@@ -210,7 +210,7 @@ export default {
         throw new Error(`port ${this.formData.port} is not open`)
       }
       if (!data.hasOwnProperty('bestQC') || !data.hasOwnProperty('bestBlock') || !data.hasOwnProperty('pubkey')) {
-        throw `meter is not correctly running on node ${this.formData.ip}`
+        throw `verse is not correctly running on node ${this.formData.ip}`
       }
       if (data.pubkey != this.formData.publicKey) {
         throw new Error(

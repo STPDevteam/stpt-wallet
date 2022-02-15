@@ -13,10 +13,7 @@
       <div v-else class="candidate-modal-body">
         <b-form @submit.prevent="onSubmit">
           <!-- candidate address -->
-          <b-form-group
-            label="Candidate address:"
-            label-for="candidateaddress"
-          >
+          <b-form-group label="Candidate address:" label-for="candidateaddress">
             <b-form-input
               id="candidateaddress"
               v-model="formData.address"
@@ -25,22 +22,11 @@
             ></b-form-input>
           </b-form-group>
           <!-- name -->
-          <b-form-group
-            label="Name:"
-            label-for="name"
-          >
-            <b-form-input
-              id="name"
-              v-model="formData.name"
-              placeholder="Enter name"
-              required
-            ></b-form-input>
+          <b-form-group label="Name:" label-for="name">
+            <b-form-input id="name" v-model="formData.name" placeholder="Enter name" required></b-form-input>
           </b-form-group>
           <!-- description -->
-          <b-form-group
-            label="Description:"
-            label-for="description"
-          >
+          <b-form-group label="Description:" label-for="description">
             <b-form-input
               id="description"
               v-model="formData.description"
@@ -49,10 +35,7 @@
             ></b-form-input>
           </b-form-group>
           <!-- IP -->
-          <b-form-group
-            label="IP:"
-            label-for="ip"
-          >
+          <b-form-group label="IP:" label-for="ip">
             <b-input-group>
               <b-form-input
                 id="ip"
@@ -67,17 +50,8 @@
             </b-input-group>
           </b-form-group>
           <!-- port -->
-          <b-form-group
-            label="Port:"
-            label-for="port"
-          >
-            <b-form-input
-              id="port"
-              v-model="formData.port"
-              placeholder="Enter port"
-              required
-              disabled
-            ></b-form-input>
+          <b-form-group label="Port:" label-for="port">
+            <b-form-input id="port" v-model="formData.port" placeholder="Enter port" required disabled></b-form-input>
           </b-form-group>
           <!-- commission rate -->
           <b-form-group label="Commission Rate:" label-for="commisstionRate">
@@ -91,10 +65,7 @@
             </b-input-group>
           </b-form-group>
           <!-- public key -->
-          <b-form-group
-            label="Public Key:"
-            label-for="publicKey"
-          >
+          <b-form-group label="Public Key:" label-for="publicKey">
             <b-form-textarea
               id="publicKey"
               v-model="formData.publicKey"
@@ -112,7 +83,9 @@
     </template>
     <template #modal-footer>
       <div class="candidate-modal-footer w-100 py-4">
-        <b-button v-if="updateCandidateHash" @click="goMeterScan" class="w-100" type="button" variant="primary">Meter Scan</b-button>
+        <b-button v-if="updateCandidateHash" @click="goMeterScan" class="w-100" type="button" variant="primary"
+          >Verse Scan</b-button
+        >
       </div>
     </template>
   </CustomizedModal>
@@ -126,17 +99,17 @@ import { getMeterScanUrl } from '@/api'
 import { regExpList } from '@/constants'
 
 export default {
-  name: "CandidateUpdateModal",
+  name: 'CandidateUpdateModal',
   props: {
     updateCandidateParams: {
       type: Object,
       default() {
         return {
           show: false,
-          data: {}
+          data: {},
         }
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -149,8 +122,8 @@ export default {
         port: 8670,
         commisstionRate: '10',
         publicKey: '',
-        autoBid: true
-      }
+        autoBid: true,
+      },
     }
   },
   watch: {
@@ -161,7 +134,7 @@ export default {
         this.formData.name = name
         this.formData.description = description
         this.formData.ip = ipAddr
-        this.formData.commisstionRate = commission/1e7
+        this.formData.commisstionRate = commission / 1e7
         this.formData.publicKey = pubKey
       }
     },
@@ -169,7 +142,7 @@ export default {
       if (newVal === '' && oldVal.includes('0x')) {
         this.closeModal()
       }
-    }
+    },
   },
   computed: {
     ...mapState('candidate', ['updateCandidateLoading']),
@@ -202,11 +175,11 @@ export default {
         return false
       }
       return true
-    }
+    },
   },
   methods: {
     ...mapActions({
-      updateCandidate: 'candidate/updateCandidate'
+      updateCandidate: 'candidate/updateCandidate',
     }),
     closeModal() {
       this.$emit('close')
@@ -222,25 +195,25 @@ export default {
         Math.floor(this.formData.commisstionRate * 100),
         undefined,
         undefined,
-        this.formData.autoBid ? 100 : 0
-      );
+        this.formData.autoBid ? 100 : 0,
+      )
 
-      this.updateCandidate({ name: this.formData.name, data: "0x" + dataBuffer.toString("hex")})
+      this.updateCandidate({ name: this.formData.name, data: '0x' + dataBuffer.toString('hex') })
     },
     goMeterScan() {
       const url = getMeterScanUrl(this.chainId)
       window.open(`${url}/tx/${this.updateCandidateHash}`, '_blank')
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .candidate-modal-body {
-    padding: 0 32px;
-  }
-  .candidate-modal-footer {
-    padding: 0 32px;
-    overflow-y: auto;
-  }
+.candidate-modal-body {
+  padding: 0 32px;
+}
+.candidate-modal-footer {
+  padding: 0 32px;
+  overflow-y: auto;
+}
 </style>
