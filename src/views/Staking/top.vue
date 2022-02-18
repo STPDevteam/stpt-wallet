@@ -5,8 +5,8 @@
         <b-row>
           <b-col md="6" class="d-flex flex-wrap justify-content-between">
             <div v-for="(item, index) in computedBalance" :key="index">
-              <div class="symbol-label text-right">{{ item.symbol }}</div>
-              <div class="balance-label">{{ item.balance }}</div>
+              <div class="symbol-label text-right">{{ item.symbol || '-' }}</div>
+              <div class="balance-label">{{ item.balance || '-' }}</div>
             </div>
           </b-col>
           <b-col md="6" class="d-flex flex-wrap justify-content-md-end my-3">
@@ -41,16 +41,16 @@ export default {
     computedBalance() {
       return [
         {
-          balance: new BigNumber(this.balances.native).toFormat(2),
-          symbol: this.currentNetwork.nativeTokenSymbol || '',
+          balance: this.balances.native ? new BigNumber(this.balances.native).toFormat(2) : '--',
+          symbol: this.currentNetwork.nativeTokenSymbol || 'STPT',
         },
         {
-          balance: new BigNumber(this.balances.energy).toFormat(2),
-          symbol: this.currentNetwork.governanceTokenSymbol || '',
+          balance: this.balances.energy ? new BigNumber(this.balances.energy).toFormat(2) : '--',
+          symbol: this.currentNetwork.governanceTokenSymbol || 'STPD',
         },
         {
-          balance: new BigNumber(this.balances.bound).toFormat(2),
-          symbol: 'Locked ' + this.currentNetwork.governanceTokenSymbol || '',
+          balance: this.balances.bound ? new BigNumber(this.balances.bound).toFormat(2) : '--',
+          symbol: 'Locked ' + (this.currentNetwork.governanceTokenSymbol || 'STPD'),
         },
       ]
     },
